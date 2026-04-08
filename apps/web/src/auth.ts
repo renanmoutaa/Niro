@@ -5,7 +5,7 @@ import { createClient } from '@libsql/client';
 import { users } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import * as bcrypt from 'bcryptjs';
-import { authConfig } from "./auth.config";
+import { authConfig } from "@/auth.config";
 
 // Função para obter o banco de dados apenas quando necessário
 function getDb() {
