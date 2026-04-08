@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/api/index.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "apps/web/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "apps/api/index.ts"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "apps/web/$1"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/api",
+      "destination": "/api/",
+      "permanent": true
+    }
+  ]
+}
