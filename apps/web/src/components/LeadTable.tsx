@@ -22,11 +22,12 @@ interface LeadTableProps {
   sortOrder: 'asc' | 'desc';
 }
 
+const SortIcon = ({ field, currentSortField, currentSortOrder }: { field: string, currentSortField: string, currentSortOrder: string }) => {
+  if (currentSortField !== field) return null;
+  return currentSortOrder === 'asc' ? <ArrowUp className="w-3 h-3 ml-1 text-emerald-400" /> : <ArrowDown className="w-3 h-3 ml-1 text-emerald-400" />;
+};
+
 export function LeadTable({ leads, onSelectLead, onSort, sortField, sortOrder }: LeadTableProps) {
-  const SortIcon = ({ field }: { field: string }) => {
-    if (sortField !== field) return null;
-    return sortOrder === 'asc' ? <ArrowUp className="w-3 h-3 ml-1 text-emerald-400" /> : <ArrowDown className="w-3 h-3 ml-1 text-emerald-400" />;
-  };
 
   const formatCurrency = (value?: string) => {
     if (!value) return '---';
@@ -46,7 +47,7 @@ export function LeadTable({ leads, onSelectLead, onSort, sortField, sortOrder }:
                 className="p-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider cursor-pointer hover:text-white transition-colors"
               >
                 <div className="flex items-center">
-                  Entidade / Lead <SortIcon field="name" />
+                  Entidade / Lead <SortIcon field="name" currentSortField={sortField} currentSortOrder={sortOrder} />
                 </div>
               </th>
               <th className="p-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Telefone</th>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, User, Phone, CreditCard, Calendar, MapPin, TrendingUp, Map, Hash, Loader2, Sparkles, Send, MessageCircle } from 'lucide-react';
+import { X, User, Phone, CreditCard, MapPin, TrendingUp, Map, Hash, Loader2, Sparkles, Send, MessageCircle } from 'lucide-react';
 
 interface Lead {
   id: string;

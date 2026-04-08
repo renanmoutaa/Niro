@@ -31,7 +31,7 @@ export default function LoginPage() {
         router.push('/');
         router.refresh();
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred during authentication.');
     } finally {
       setLoading(false);

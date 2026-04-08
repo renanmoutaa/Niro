@@ -36,7 +36,7 @@ export function FilterBar({ onSearch, onStatusChange }: FilterBarProps) {
         </div>
         
         <button 
-          onClick={() => (window as any).processIntelligence && (window as any).processIntelligence()}
+          onClick={() => (window as unknown as { processIntelligence?: () => void }).processIntelligence?.()}
           className="bg-white text-black px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-200 transition-colors flex items-center gap-2 shadow-lg shadow-white/5 active:scale-95"
         >
           <Database className="w-4 h-4" />

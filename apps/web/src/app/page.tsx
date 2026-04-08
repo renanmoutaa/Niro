@@ -32,7 +32,7 @@ interface StatusStat {
 
 export default function NiroDashboard() {
   const [leads, setLeads] = useState<Lead[]>([]);
-  const [stats, setStats] = useState<{ total: number; byStatus: StatusStat[]; topDevices: any[] }>({ 
+  const [stats, setStats] = useState<{ total: number; byStatus: StatusStat[]; topDevices: string[] }>({ 
     total: 0, 
     byStatus: [], 
     topDevices: [] 
@@ -136,8 +136,8 @@ export default function NiroDashboard() {
 
   // Expose to FilterBar via Window for simplicity in this MVP
   useEffect(() => {
-    (window as any).processIntelligence = handleProcessIntelligence;
-  }, []);
+    (window as unknown as { processIntelligence: () => void }).processIntelligence = handleProcessIntelligence;
+  }, [handleProcessIntelligence]);
 
   const handleSelectLead = (lead: Lead) => {
     setSelectedLead(lead);
@@ -317,7 +317,7 @@ export default function NiroDashboard() {
               {/* Paginação */}
               <div className="mt-8 flex items-center justify-between px-2">
                 <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">
-                  Página {page} de {totalPages} // Total: {stats.total}
+                  Página {page} de {totalPages} {/* Total: {stats.total} */}
                 </div>
                 <div className="flex gap-2">
                   <button 

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+
 import { ShieldCheck, Cpu } from 'lucide-react';
 
 export function ProfessionalHeader() {

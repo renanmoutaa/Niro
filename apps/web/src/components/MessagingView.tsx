@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  MessageSquare, Send, Clock, Check, CheckCheck, 
+  MessageSquare, Clock, Check, CheckCheck, 
   AlertCircle, Search, User, Settings, Save, 
   X as CloseIcon, Filter, Users, Layout, 
   ChevronRight, Trash2, Plus, Sparkles, Zap
@@ -38,7 +38,7 @@ interface Lead {
 export const MessagingView = () => {
   const [activeTab, setActiveTab] = useState<'history' | 'campaign'>('history');
   const [messages, setMessages] = useState<Message[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [showSettings, setShowSettings] = useState(false);
   
@@ -187,7 +187,7 @@ export const MessagingView = () => {
     for (let i = 0; i < leadsToProcess.length; i++) {
         const lead = leadsToProcess[i];
         // Dynamic variable replacement
-        let personalizedContent = campaignContent
+        const personalizedContent = campaignContent
             .replace(/\{\{name\}\}/g, lead.name || 'Cliente')
             .replace(/\{\{city\}\}/g, lead.city || '')
             .replace(/\{\{income\}\}/g, lead.income || '')
