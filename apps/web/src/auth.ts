@@ -7,12 +7,25 @@ import { eq } from 'drizzle-orm';
 import * as bcrypt from 'bcryptjs';
 import { authConfig } from "./auth.config";
 
-// Configuração para o Turso (LibSQL)
-const client = createClient({
-  url: process.env.DATABASE_URL!,
-  authToken: process.env.DATABASE_AUTH_TOKEN!,
-});
-const db = drizzle(client);
+// Função para obter o banco de dados apenas quando necessário
+function getDb() {
+  const url = process.env.DATABASE_URL;
+  const authToken = process.env.DATABASE_AUTH_TOKEN;
+
+  if (!url) {
+    // Durante o build do Next.js, as variáveis podem não estar presentes.
+    // Retornamos um objeto vazio ou null para não quebrar o build,
+    // já que o authorize só será chamado em runtime (quando o site estiver rodando).
+    console.warn("DATABASE_URL não definida em tempo de execução/build.");
+    return null;
+  }
+
+  const client = createClient({
+    url: url,
+    authToken: authToken,
+  });
+  return drizzle(client);
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
@@ -24,6 +37,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
+
+        const db = getDb();
+        if (!db) {
+          console.error("Banco de dados não inicializado.");
+          return null;
+        }
 
         try {
           const user = await db.select().from(users).where(eq(users.email, credentials.email as string)).get();
